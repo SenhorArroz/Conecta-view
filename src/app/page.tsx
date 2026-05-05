@@ -1,8 +1,6 @@
 "use client";
 import { useEffect, useRef } from 'react';
 import Typed from 'typed.js';
-// Importação robusta para Anime.js no ecossistema Next.js
-import * as anime from 'animejs';
 
 const LandingPage = () => {
   const el = useRef<HTMLSpanElement>(null);
@@ -34,21 +32,7 @@ const LandingPage = () => {
     };
     initScrollReveal();
 
-    // 3. Anime.js - Corrigido: Usando a referência direta e tratando o objeto
-    const animeInstance = (anime as any).default || anime;
-    
-    if (typeof animeInstance === 'function') {
-      animeInstance({
-        targets: '.logo-float',
-        translateY: [-5, 5],
-        direction: 'alternate',
-        loop: true,
-        easing: 'easeInOutSine',
-        duration: 2000
-      });
-    }
-
-    // Cleanup para evitar vazamento de memória e duplicidade de instâncias
+    // Cleanup para evitar vazamento de memória
     return () => {
       typed.destroy();
     };
@@ -62,7 +46,8 @@ const LandingPage = () => {
           <img 
             src="/logoProeidi.png" 
             alt="Proeidi Logo" 
-            className="h-20 logo-float"
+            // Substituído animejs por animação nativa suave do Tailwind
+            className="h-20 animate-pulse duration-[3000ms]"
           />
         </div>
         <div className="flex">
