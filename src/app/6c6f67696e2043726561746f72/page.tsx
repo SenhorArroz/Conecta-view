@@ -2,15 +2,15 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { api } from "~/trpc/react"; // Importação correta para Client Components
+import { api } from "~/trpc/react"; 
 
 export default function RegisterPage() {
+    const [name, setName] = useState(""); // Novo estado para o nome
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [status, setStatus] = useState<"idle" | "loading" | "error" | "success">("idle");
     const router = useRouter();
 
-    // Hook do tRPC para mutação
     const createUser = api.auth.createUser.useMutation({
         onSuccess: () => {
             setStatus("success");
@@ -25,8 +25,8 @@ export default function RegisterPage() {
         e.preventDefault();
         setStatus("loading");
         
-        // Chama a mutação definida no seu router auth.ts
-        createUser.mutate({ email, password });
+        // Agora enviando também o 'name' para o backend
+        createUser.mutate({ name, email, password });
     };
 
     return (
@@ -36,6 +36,16 @@ export default function RegisterPage() {
                     <h1 className="text-3xl font-black text-[#248ebe]">Novo Usuário</h1>
 
                     <form onSubmit={handleRegister} className="flex flex-col gap-4 w-full">
+                        {/* Campo de Nome */}
+                        <input
+                            type="text"
+                            placeholder="Nome Completo"
+                            className="input input-bordered w-full h-14 rounded-2xl bg-slate-50 px-6 focus:border-[#248ebe] focus:outline-none text-slate-800"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            required
+                        />
+
                         <input
                             type="email"
                             placeholder="E-mail"

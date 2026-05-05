@@ -12,12 +12,13 @@ export const authRouter = createTRPCRouter({
     createUser: publicProcedure
         .input(
             z.object({
+                name: z.string().optional(),
                 email: z.string().email(),
                 password: z.string().min(6),
             })
         )
         .mutation(async ({ input }) => {
-            const { email, password } = input;
+            const { name, email, password } = input;
             
             const existingUser = await db.user.findUnique({ where: { email } });
             
@@ -30,7 +31,8 @@ export const authRouter = createTRPCRouter({
             
             const user = await db.user.create({
                 data: {
-                    email,
+                    name: input.name,
+                    email: input.email,
                     password: hashedPassword,
                 },
             });
