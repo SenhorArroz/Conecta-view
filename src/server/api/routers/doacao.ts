@@ -26,7 +26,7 @@ export const doacaoRouter = createTRPCRouter({
         const novaDoacao = await tx.doacao.create({
           data: {
             nome: nomeDoador,
-            desc: desc,
+            desc: desc ?? "",
             equipeId: equipeId,
             createdById: ctx.session.user.id,
             // Criação aninhada dos itens vinculados à doação
