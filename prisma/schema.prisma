@@ -69,7 +69,6 @@ model User {
     items         Item[]
     doacaos       Doacao[]
     provaGincanas Prova_Gincana[]
-    avaliacaos    Avaliacao[]
 }
 
 model VerificationToken {
@@ -90,7 +89,6 @@ model Equipe {
     createdById   String
     doacoes       Doacao[]
     provaGincanas Prova_Gincana[]
-    avaliacaos    Avaliacao[]
 
     @@index([name])
 }
