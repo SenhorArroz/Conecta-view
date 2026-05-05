@@ -1,12 +1,12 @@
 "use client";
 import { useEffect, useRef } from 'react';
 import Typed from 'typed.js';
-import * as animeModule from 'animejs';
 
 export default function SobrePage() {
-    const el = useRef(null);
+    const el = useRef<HTMLSpanElement>(null);
 
     useEffect(() => {
+        // 1. Typed.js
         let typed: Typed | null = null;
         if (el.current) {
             typed = new Typed(el.current, {
@@ -17,9 +17,11 @@ export default function SobrePage() {
             });
         }
 
+        // 2. ScrollReveal (Import dinâmico para evitar erro de SSR)
         const initScrollReveal = async () => {
             try {
-                const ScrollReveal = (await import('scrollreveal')).default;
+                const srModule = await import('scrollreveal');
+                const ScrollReveal = srModule.default;
                 ScrollReveal().reveal('.reveal', {
                     delay: 300,
                     distance: '30px',
@@ -32,18 +34,6 @@ export default function SobrePage() {
             }
         };
         initScrollReveal();
-
-        const anime = (animeModule as any).default || animeModule;
-        if (typeof anime === 'function') {
-            anime({
-                targets: '.logo-float',
-                translateY: [-5, 5],
-                direction: 'alternate',
-                loop: true,
-                easing: 'easeInOutSine',
-                duration: 2000
-            });
-        }
 
         return () => {
             if (typed) typed.destroy();
@@ -58,7 +48,6 @@ export default function SobrePage() {
                 <div className="max-w-7xl mx-auto">
                     <div className="flex flex-col md:flex-row gap-16 items-center reveal">
                         <div className="md:w-3/5 text-left">
-                            {/* O SPAN COM REF DEVE ESTAR AQUI */}
                             <h2 className="text-4xl md:text-5xl font-extrabold text-[#248ebe] mb-8 leading-tight">
                                 Gerencie <span className="text-[#ff9324]" ref={el}></span> <br />
                                 do Proeidi Conecta
@@ -68,8 +57,7 @@ export default function SobrePage() {
                             </p>
                             <p className="text-slate-600 text-lg leading-relaxed">
                                 A missão é garantir que cada ponto, cada doação e cada esforço das equipes seja
-                                registrado com transparência e agilidade (isso, claro, sem que ninguém sem autorização veja)
-                                [Tá achando que aqui é a Disney?]
+                                registrado com transparência e agilidade (isso, claro, sem que ninguém sem autorização veja).
                             </p>
                         </div>
                         
@@ -99,12 +87,11 @@ export default function SobrePage() {
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                        {/* Cards (Mantendo a estrutura anterior) */}
                         {[
                             { title: 'Next.js 15', desc: 'Framework React para performance.', icon: 'N' },
                             { title: 'TypeScript', desc: 'Desenvolvimento seguro com tipagem.', icon: 'TS' },
                             { title: 'Prisma ORM', desc: 'Gerenciamento de banco de dados.', icon: 'P' },
-                            { title: 'Muita Cafeína', desc: 'Só isso pra me manter acordado.', icon: 'Café' }
+                            { title: 'Muita Cafeína', desc: 'Só isso pra me manter acordado.', icon: '☕' }
                         ].map((tech, i) => (
                             <div key={i} className="group bg-white p-8 rounded-3xl shadow-sm border border-slate-200 hover:border-[#ff9324] hover:shadow-xl transition-all duration-500 flex flex-col items-center text-center">
                                 <div className="w-14 h-14 bg-slate-50 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">

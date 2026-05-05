@@ -46,7 +46,6 @@ const LandingPage = () => {
           <img 
             src="/logoProeidi.png" 
             alt="Proeidi Logo" 
-            // Substituído animejs por animação nativa suave do Tailwind
             className="h-20 animate-pulse duration-[3000ms]"
           />
         </div>
