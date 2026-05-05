@@ -46,7 +46,7 @@ const LandingPage = () => {
           <img 
             src="/logoProeidi.png" 
             alt="Proeidi Logo" 
-            className="h-20 animate-pulse duration-[3000ms]"
+            className="h-20"
           />
         </div>
         <div className="flex">
