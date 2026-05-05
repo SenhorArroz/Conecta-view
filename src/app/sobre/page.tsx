@@ -6,7 +6,6 @@ export default function SobrePage() {
     const el = useRef<HTMLSpanElement>(null);
 
     useEffect(() => {
-        // 1. Typed.js
         let typed: Typed | null = null;
         if (el.current) {
             typed = new Typed(el.current, {
@@ -17,7 +16,6 @@ export default function SobrePage() {
             });
         }
 
-        // 2. ScrollReveal (Import dinâmico para evitar erro de SSR)
         const initScrollReveal = async () => {
             try {
                 const srModule = await import('scrollreveal');
@@ -43,7 +41,6 @@ export default function SobrePage() {
     return (
         <main className="w-full min-h-screen bg-slate-50 flex flex-col">
             
-            {/* Seção Sobre a Aplicação */}
             <section id="sobre" className="w-full py-24 px-6 md:px-12 bg-white border-b border-slate-100">
                 <div className="max-w-7xl mx-auto">
                     <div className="flex flex-col md:flex-row gap-16 items-center reveal">
@@ -77,7 +74,6 @@ export default function SobrePage() {
                 </div>
             </section>
 
-            {/* Seção Stack Tecnológica */}
             <section className="w-full py-24 px-6 md:px-12 bg-slate-50">
                 <div className="max-w-7xl mx-auto reveal">
                     <div className="text-center mb-16">

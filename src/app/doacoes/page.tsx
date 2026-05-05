@@ -15,20 +15,16 @@ export default function DoacoesPage() {
   const { data: session } = useSession();
   const utils = api.useUtils();
 
-  // Queries Reais
   const { data: itens } = api.item.getAll.useQuery();
   const { data: equipes } = api.equipe.getAll.useQuery();
   const { data: doacoesReal, isLoading } = api.doacao.getAll.useQuery();
 
-  // Estados do Formulário
   const [nomeDoador, setNomeDoador] = useState("");
   const [equipeId, setEquipeId] = useState("");
   const [desc, setDesc] = useState("");
   const [itensQuantificados, setItensQuantificados] = useState<ItemSelecionado[]>([]);
   const [isEditing, setIsEditing] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
-
-  // --- LÓGICA DE SELEÇÃO E QUANTIDADE ---
 
   const handleToggleItem = (item: { id: string, name: string }) => {
     const existe = itensQuantificados.find(i => i.id === item.id);
@@ -40,13 +36,11 @@ export default function DoacoesPage() {
   };
 
   const updateQuantidade = (e: React.MouseEvent, id: string, delta: number) => {
-    e.stopPropagation(); // IMPEDE de desmarcar o item ao clicar no + ou -
+    e.stopPropagation(); 
     setItensQuantificados(prev => prev.map(i =>
       i.id === id ? { ...i, quantidade: Math.max(1, i.quantidade + delta) } : i
     ));
   };
-
-  // --- MUTAÇÕES (CREATE / UPDATE) ---
 
   const createDoacao = api.doacao.create.useMutation({
     onSuccess: async () => {
@@ -103,8 +97,6 @@ export default function DoacoesPage() {
     }
   };
 
-  // --- FUNÇÕES DE APOIO ---
-
   const handleEdit = (doacao: any) => {
     setIsEditing(true);
     setEditingId(doacao.id);
@@ -112,7 +104,6 @@ export default function DoacoesPage() {
     setEquipeId(doacao.equipeId);
     setDesc(doacao.desc || "");
 
-    // Conversão do formato Prisma -> View
     const formatadosParaTela = doacao.itensDoadores.map((vinc: any) => ({
       id: vinc.itemId,
       nome: vinc.item.name,
@@ -145,7 +136,6 @@ export default function DoacoesPage() {
         </div>
 
         <div className="grid lg:grid-cols-3 gap-8">
-          {/* FORMULÁRIO */}
           <section className="lg:col-span-1">
             <form onSubmit={handleSubmit}>
               <div className={`card bg-white shadow-xl rounded-[2.5rem] border-2 transition-all p-8 sticky top-24 ${isEditing ? 'border-[#248ebe]' : 'border-slate-100'}`}>
@@ -188,13 +178,13 @@ export default function DoacoesPage() {
                             {selecionado && (
                               <div className="flex items-center gap-3 bg-white rounded-xl p-1 shadow-sm border border-slate-100">
                                 <button
-                                  type="button" // IMPORTANTE: NÃO ENVIA O FORM
+                                  type="button" 
                                   onClick={(e) => updateQuantidade(e, item.id, -1)}
                                   className="w-8 h-8 flex items-center justify-center font-black text-[#ff9324] hover:bg-orange-50 rounded-lg transition-colors"
                                 > - </button>
                                 <span className="text-sm font-black text-slate-800 w-4 text-center">{selecionado.quantidade}</span>
                                 <button
-                                  type="button" // IMPORTANTE: NÃO ENVIA O FORM
+                                  type="button" 
                                   onClick={(e) => updateQuantidade(e, item.id, 1)}
                                   className="w-8 h-8 flex items-center justify-center font-black text-[#ff9324] hover:bg-orange-50 rounded-lg transition-colors"
                                 > + </button>
@@ -228,14 +218,12 @@ export default function DoacoesPage() {
             </form>
           </section>
 
-          {/* LISTAGEM REAl */}
           <section className="lg:col-span-2">
             <div className="grid gap-6">
               {isLoading ? (
                 <p className="text-center font-bold text-slate-400 py-20">Carregando doações...</p>
               ) : (
                 doacoesReal?.map((doacao) => {
-                  // CÁLCULO DA PONTUAÇÃO TOTAL DA DOAÇÃO
                   const totalPontosDoacao = doacao.itensDoadores.reduce((acc: number, vinc: any) => {
                     const pontosItem = vinc.item?.pontos ?? 0;
                     return acc + (pontosItem * vinc.quantidade);
@@ -255,7 +243,6 @@ export default function DoacoesPage() {
                             </div>
                           </div>
 
-                          {/* EXIBIÇÃO DA PONTUAÇÃO TOTAL NO CARD */}
                           <div className="text-right">
                             <span className="block text-2xl font-black text-[#ff9324] leading-none">{totalPontosDoacao}</span>
                             <span className="text-[10px] font-black text-slate-300 uppercase tracking-widest">pontos</span>

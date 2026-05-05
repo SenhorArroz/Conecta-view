@@ -6,7 +6,6 @@ const LandingPage = () => {
   const el = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
-    // 1. Typed.js - Efeito de digitação no Hero
     const typed = new Typed(el.current, {
       strings: ['Equipes', 'Doações', 'Provas', 'Pontuações'],
       typeSpeed: 60,
@@ -14,7 +13,6 @@ const LandingPage = () => {
       loop: true,
     });
 
-    // 2. ScrollReveal - Import dinâmico para evitar erro de SSR (Server Side Rendering)
     const initScrollReveal = async () => {
       try {
         const srModule = await import('scrollreveal');
@@ -32,7 +30,6 @@ const LandingPage = () => {
     };
     initScrollReveal();
 
-    // Cleanup para evitar vazamento de memória
     return () => {
       typed.destroy();
     };
@@ -40,7 +37,6 @@ const LandingPage = () => {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      {/* Navbar */}
       <nav className="navbar bg-white shadow-md px-4 md:px-12 sticky top-0 z-50 border-b border-gray-100">
         <div className="flex-1">
           <img 
@@ -59,7 +55,6 @@ const LandingPage = () => {
         </div>
       </nav>
 
-      {/* Hero Section */}
       <header className="hero min-h-[75vh] bg-[#248ebe] text-white">
         <div className="hero-content text-center">
           <div className="max-w-2xl">
@@ -72,12 +67,12 @@ const LandingPage = () => {
               centralizando doações e resultados em tempo real.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4 mt-4">
-              <button className="btn bg-[#ff9324] hover:bg-[#e07d1d] btn-lg shadow-2xl text-white border-none px-10 transition-all active:scale-95">
+              <a href='/login' className="btn bg-[#ff9324] hover:bg-[#e07d1d] btn-lg shadow-2xl text-white border-none px-10 transition-all active:scale-95">
                 Começar Agora
-              </button>
-              <button className="btn btn-outline btn-lg border-white text-white hover:bg-white hover:text-[#248ebe] px-10 transition-all">
-                Ver Ranking
-              </button>
+              </a>
+              <a href='/sobre' className="btn btn-outline btn-lg border-white text-white hover:bg-white hover:text-[#248ebe] px-10 transition-all">
+                Conhecer mais
+              </a>
             </div>
           </div>
         </div>

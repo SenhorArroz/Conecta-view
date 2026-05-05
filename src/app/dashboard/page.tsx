@@ -10,7 +10,6 @@ export default function DashboardEquipe() {
     const [novaEquipeNome, setNovaEquipeNome] = useState("");
     const { data: doacoesReal } = api.doacao.getAll.useQuery();
 
-    // ESTADOS PARA EDIÇÃO
     const [isEditing, setIsEditing] = useState(false);
     const [editingId, setEditingId] = useState<string | null>(null);
 
@@ -30,7 +29,6 @@ export default function DashboardEquipe() {
     const top2 = listaEquipesRankeada.find(e => e.posicao === 2);
     const top3 = listaEquipesRankeada.find(e => e.posicao === 3);
 
-    // MUTAÇÕES
     const createEquipe = api.equipe.create.useMutation({
         onSuccess: async () => {
             handleCancelar();
@@ -51,7 +49,6 @@ export default function DashboardEquipe() {
         }
     });
 
-    // FUNÇÕES DE AÇÃO
     const handleEditClick = (id: string, nome: string) => {
         setEditingId(id);
         setNovaEquipeNome(nome);
@@ -80,7 +77,6 @@ export default function DashboardEquipe() {
     return (
         <div className="min-h-screen bg-[#F8FAFC] flex flex-col w-full font-sans text-slate-800">
 
-            {/* MODAL DE ADIÇÃO DE EQUIPE */}
             {isModalOpen && (
                 <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
                     <div
@@ -130,11 +126,9 @@ export default function DashboardEquipe() {
                 </div>
             )}
 
-            {/* HEADER */}
             <Navbar activePage="dashboard" />
 
             <main className="p-6 md:p-10 max-w-7xl mx-auto w-full flex flex-col gap-10">
-                {/* PÓDIO */}
                 <section className="relative overflow-hidden bg-white p-10 rounded-[3rem] shadow-xl shadow-blue-900/5 border border-slate-100 flex flex-col items-center">
                     <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-[#248ebe] via-[#ff9324] to-[#248ebe]"></div>
 
@@ -152,7 +146,6 @@ export default function DashboardEquipe() {
                             </div>
                         </div>
 
-                        {/* 1º Lugar */}
                         <div className="flex flex-col items-center group">
                             <div className="mb-6 transform group-hover:-translate-y-3 transition-transform duration-500">
                                 <div className="w-20 h-20 rounded-[1.5rem] bg-white border-4 border-[#ff9324] flex items-center justify-center font-black text-3xl text-[#ff9324] shadow-2xl -rotate-6 group-hover:rotate-0 transition-all">1º</div>
@@ -164,7 +157,6 @@ export default function DashboardEquipe() {
                             </div>
                         </div>
 
-                        {/* 3º Lugar */}
                         <div className="flex flex-col items-center group">
                             <div className="mb-3 transform group-hover:-translate-y-2 transition-transform duration-500">
                                 <div className="w-12 h-12 rounded-xl bg-amber-50 border-4 border-amber-400 flex items-center justify-center font-black text-amber-700/80 shadow-md rotate-12 group-hover:rotate-0 transition-all">3º</div>
@@ -233,7 +225,6 @@ export default function DashboardEquipe() {
                         </div>
                     </div>
 
-                    {/* ATIVIDADES RECENTES */}
                     <div className="lg:col-span-2 bg-white p-10 rounded-[3rem] shadow-sm border border-slate-100">
                         <h3 className="text-sm font-black text-[#248ebe] uppercase tracking-[0.2em] mb-10 flex items-center gap-2">
                             <div className="w-1.5 h-6 bg-[#ff9324] rounded-full"></div>

@@ -72,7 +72,6 @@ export default function ItensPage() {
 
       <div className="max-w-6xl mx-auto space-y-10">
 
-        {/* Cabeçalho */}
         <div className="flex justify-between items-end py-10 border-b-4 border-[#ff9324] pb-4">
           <div>
             <h1 className="text-4xl font-black text-[#248ebe]">Itens para doação</h1>
@@ -84,7 +83,6 @@ export default function ItensPage() {
         </div>
 
         <div className="grid lg:grid-cols-3 gap-8">
-          {/* Formulário lateral adaptável para Criar/Update */}
           <form action="" onSubmit={handleSubmit}>
             <section className="lg:col-span-1">
               <div className={`card bg-white shadow-xl rounded-[2.5rem] border-2 transition-all duration-300 p-8 sticky top-24 ${isEditing ? 'border-[#248ebe]' : 'border-slate-100'}`}>
@@ -137,7 +135,6 @@ export default function ItensPage() {
             </section>
           </form>
 
-          {/* Listagem com botão de Update */}
           <section className="lg:col-span-2">
             <div className="grid sm:grid-cols-2 gap-6">
               {itens?.map((item) => (
@@ -154,7 +151,6 @@ export default function ItensPage() {
                     </p>
 
                     <div className="flex justify-end gap-4 mt-6 pt-4 border-t border-slate-50">
-                      {/* Botão de Update Visual */}
                       <button
                         onClick={() => handleEditPreview(item as { id: string; name: string; pontos: number; desc: string })}
                         className="flex items-center gap-1 text-[#248ebe] hover:text-[#ff9324] font-bold text-xs uppercase tracking-widest transition-colors"

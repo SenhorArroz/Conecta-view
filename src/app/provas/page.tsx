@@ -9,11 +9,9 @@ export default function ProvasPage() {
   const { data: session } = useSession();
   const utils = api.useUtils();
 
-  // Queries
   const { data: equipes } = api.equipe.getAll.useQuery();
   const { data: provas, isLoading } = api.prova.getAll.useQuery();
 
-  // Estados
   const [nomeProva, setNomeProva] = useState("");
   const [pontos, setPontos] = useState("");
   const [equipeId, setEquipeId] = useState("");
@@ -21,13 +19,12 @@ export default function ProvasPage() {
   const [isEditing, setIsEditing] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
 
-  // Mutações
   const createProva = api.prova.create.useMutation({
     onSuccess: async () => {
       alert("Prova cadastrada!");
       clearForm();
       await utils.prova.getAll.invalidate();
-      await utils.equipe.getAll.invalidate(); // Atualiza ranking no dashboard
+      await utils.equipe.getAll.invalidate(); 
     }
   });
 

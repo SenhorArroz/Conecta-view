@@ -52,7 +52,6 @@ export default function LoginPage() {
           </div>
 
           <form onSubmit={handleSubmit} className="text-center space-y-4">
-            {/* Input de E-mail */}
             <div className="form-control w-full">
               <input
                 type="email"
@@ -64,7 +63,6 @@ export default function LoginPage() {
               />
             </div>
 
-            {/* Input de Senha */}
             <div className="form-control w-full">
               <input
                 type="password"

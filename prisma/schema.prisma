@@ -69,6 +69,7 @@ model User {
     items         Item[]
     doacaos       Doacao[]
     provaGincanas Prova_Gincana[]
+    avaliacaos    Avaliacao[]
 }
 
 model VerificationToken {
@@ -85,10 +86,11 @@ model Equipe {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    createdBy   User     @relation(fields: [createdById], references: [id])
-    createdById String
-    doacoes     Doacao[]
+    createdBy     User            @relation(fields: [createdById], references: [id])
+    createdById   String
+    doacoes       Doacao[]
     provaGincanas Prova_Gincana[]
+    avaliacaos    Avaliacao[]
 
     @@index([name])
 }
@@ -101,7 +103,7 @@ model Item {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    doacoes   ItemSendoDoado[]
+    doacoes ItemSendoDoado[]
 
     createdBy   User   @relation(fields: [createdById], references: [id])
     createdById String
@@ -126,15 +128,15 @@ model Doacao {
 }
 
 model ItemSendoDoado {
-  id        String   @id @default(cuid())
-  
-  quantidade Int      @default(1) 
+    id String @id @default(cuid())
 
-  doacao    Doacao   @relation(fields: [doacaoId], references: [id], onDelete: Cascade)
-  doacaoId  String
+    quantidade Int @default(1)
 
-  item      Item     @relation(fields: [itemId], references: [id])
-  itemId    String
+    doacao   Doacao @relation(fields: [doacaoId], references: [id], onDelete: Cascade)
+    doacaoId String
+
+    item   Item   @relation(fields: [itemId], references: [id])
+    itemId String
 }
 
 model Prova_Gincana {
@@ -148,6 +150,7 @@ model Prova_Gincana {
     createdBy   User   @relation(fields: [createdById], references: [id])
     createdById String
 
-    equipe Equipe? @relation(fields: [equipeId], references: [id])
-    equipeId   String?
+    equipe   Equipe? @relation(fields: [equipeId], references: [id])
+    equipeId String?
 }
+
