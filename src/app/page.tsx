@@ -127,7 +127,7 @@ const LandingPage = () => {
           <p className="font-bold text-2xl tracking-tight">
             PROEIDI <span className="text-[#ff9324]">CONECTA</span>
           </p> 
-          <p className="opacity-70 text-base max-w-md">Transformando a gincana do Metrópole Digital através da tecnologia.</p>
+          <p className="opacity-70 text-base max-w-md">Para uma gincana mais prática e sem usode tantas planilhas.</p>
           <p className="opacity-40 text-xs mt-4">Made by: Luiz Guimarães</p>
         </aside>
       </footer>

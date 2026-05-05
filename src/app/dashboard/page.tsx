@@ -2,6 +2,7 @@
 import { useSession } from 'next-auth/react';
 import React, { useState } from 'react';
 import { api } from '~/trpc/react';
+import Navbar from '../_components/navbar';
 
 export default function DashboardEquipe() {
     const { data: session } = useSession();
@@ -130,41 +131,7 @@ export default function DashboardEquipe() {
             )}
 
             {/* HEADER */}
-            <header className="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200 px-8 py-4 flex justify-between items-center">
-                <div className="flex items-center gap-3">
-                    <div className="bg-[#248ebe] p-1.5 rounded-xl hover:scale-110 hover:bg-white transition-all duration-500">
-                        <img src="/logoProeidi.png" alt="Logo" className="h-10 brightness-0 invert hover:brightness-100 hover:invert-0 transition-transform duration-500" />
-                    </div>
-                </div>
-
-                <div className="flex items-center gap-8">
-                    <nav className="hidden lg:flex gap-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">
-                        <a className="text-[#ff9324] border-b-2 border-[#ff9324] pb-1 cursor-pointer">Dashboard</a>
-
-                        <div className='group relative pb-1'>
-                            <a href='/itens' className="group-hover:text-[#248ebe] transition-colors duration-300">Itens</a>
-                            <span className="absolute bottom-0 left-0 h-[2px] w-0 bg-[#ff9324] transition-all duration-300 group-hover:w-full"></span>
-                        </div>
-                        <div className='group relative pb-1'>
-                            <a href='/doacoes' className="hover:text-[#248ebe] transition-all">Doações</a>
-                            <span className="absolute bottom-0 left-0 h-[2px] w-0 bg-[#ff9324] transition-all duration-300 group-hover:w-full"></span>
-                        </div>
-                        <div className='group relative pb-1'>
-                            <a href='/provas' className="hover:text-[#248ebe] transition-all">Provas</a>
-                            <span className="absolute bottom-0 left-0 h-[2px] w-0 bg-[#ff9324] transition-all duration-300 group-hover:w-full"></span>
-                        </div>
-                    </nav>
-
-                    <div className="flex items-center gap-3 bg-slate-50 pl-4 pr-1 py-1 rounded-full border border-slate-100">
-                        <span className="text-xs font-bold text-slate-500">
-                            {session?.user?.name ?? "Visitante"}
-                        </span>
-                        <div className="h-8 w-8 rounded-full bg-[#248ebe] flex items-center justify-center text-white text-xs font-bold shadow-md uppercase">
-                            {session?.user?.name?.[0] ?? "V"}
-                        </div>
-                    </div>
-                </div>
-            </header>
+            <Navbar activePage="dashboard" />
 
             <main className="p-6 md:p-10 max-w-7xl mx-auto w-full flex flex-col gap-10">
                 {/* PÓDIO */}

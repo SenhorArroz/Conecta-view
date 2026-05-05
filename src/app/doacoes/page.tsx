@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useSession } from 'next-auth/react';
+import Navbar from '../_components/navbar';
 import { api } from '~/trpc/react';
 
 interface ItemSelecionado {
@@ -133,30 +134,7 @@ export default function DoacoesPage() {
 
   return (
     <main className="min-h-screen w-full flex flex-col bg-slate-50 text-slate-900 font-sans">
-      {/* HEADER */}
-      <header className="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200 px-8 py-4 flex justify-between items-center">
-        <div className="flex items-center gap-3">
-          <div className="bg-[#248ebe] p-1.5 rounded-xl">
-            <img src="/logoProeidi.png" alt="Logo" className="h-10 brightness-0 invert" />
-          </div>
-        </div>
-
-        <div className="flex items-center gap-8">
-          <nav className="hidden lg:flex gap-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">
-            <a href="/dashboard" className="hover:text-[#248ebe] transition-colors">Dashboard</a>
-            <a href="/itens" className="hover:text-[#248ebe] transition-colors">Itens</a>
-            <a className="text-[#ff9324] border-b-2 border-[#ff9324] pb-1 cursor-pointer">Doações</a>
-            <a href="/provas" className="hover:text-[#248ebe] transition-colors">Provas</a>
-          </nav>
-
-          <div className="flex items-center gap-3 bg-slate-50 pl-4 pr-1 py-1 rounded-full border border-slate-100">
-            <span className="text-xs font-bold text-slate-500">{session?.user?.name ?? "Visitante"}</span>
-            <div className="h-8 w-8 rounded-full bg-[#248ebe] flex items-center justify-center text-white text-xs font-bold uppercase">
-              {session?.user?.name?.[0] ?? "V"}
-            </div>
-          </div>
-        </div>
-      </header>
+      <Navbar activePage="doacoes" />
 
       <div className="max-w-6xl mx-auto py-10 space-y-10">
         <div className="flex justify-between items-end border-b-4 border-[#ff9324] pb-4">

@@ -2,6 +2,7 @@
 import { useSession } from 'next-auth/react';
 import { useState } from "react";
 import { api } from '~/trpc/react';
+import Navbar from '../_components/navbar';
 
 export default function ItensPage() {
   const { data: session } = useSession();
@@ -27,7 +28,7 @@ export default function ItensPage() {
   };
 
   const createItem = api.item.create.useMutation({
-     onSuccess: async() => {
+    onSuccess: async () => {
       setName("");
       setPontos("");
       setDesc("");
@@ -35,7 +36,7 @@ export default function ItensPage() {
     }
   });
   const updateItem = api.item.update.useMutation({
-     onSuccess: async() => {
+    onSuccess: async () => {
       setName("");
       setPontos("");
       setDesc("");
@@ -45,7 +46,7 @@ export default function ItensPage() {
   });
 
   const deleteItem = api.item.delete.useMutation({
-    onSuccess: async() =>{
+    onSuccess: async () => {
       await utils.item.getAll.invalidate();
     }
   });
@@ -54,7 +55,7 @@ export default function ItensPage() {
     if (confirm("Tem certeza que deseja deletar este item?")) {
       deleteItem.mutate({ id });
     }
-  }; 
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -67,42 +68,8 @@ export default function ItensPage() {
 
   return (
     <main className="min-h-screen w-full bg-slate-50  text-slate-900 font-sans">
-      {/* HEADER */}
-      <header className="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200 px-8 py-4 flex justify-between items-center">
-        <div className="flex items-center gap-3">
-          <div className="bg-[#248ebe] p-1.5 rounded-xl hover:scale-110 hover:bg-white transition-all duration-500">
-            <img src="/logoProeidi.png" alt="Logo" className="h-10 brightness-0 invert hover:brightness-100 hover:invert-0 transition-transform duration-500" />
-          </div>
-        </div>
+      <Navbar activePage="itens" />
 
-        <div className="flex items-center gap-8">
-          <nav className="hidden lg:flex gap-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">
-            <div className='group relative pb-1'>
-              <a href="/dashboard" className="group-hover:text-[#248ebe] transition-colors duration-300">Dashboard</a>
-              <span className="absolute bottom-0 left-0 h-[2px] w-0 bg-[#ff9324] transition-all duration-300 group-hover:w-full"></span>
-            </div>
-
-            <a className="text-[#ff9324] border-b-2 border-[#ff9324] pb-1 cursor-pointer">Itens</a>
-            <div className='group relative pb-1'>
-              <a href='/doacoes' className="hover:text-[#248ebe] transition-all">Doações</a>
-              <span className="absolute bottom-0 left-0 h-[2px] w-0 bg-[#ff9324] transition-all duration-300 group-hover:w-full"></span>
-            </div>
-            <div className='group relative pb-1'>
-              <a href='/provas' className="hover:text-[#248ebe] transition-all">Provas</a>
-              <span className="absolute bottom-0 left-0 h-[2px] w-0 bg-[#ff9324] transition-all duration-300 group-hover:w-full"></span>
-            </div>
-          </nav>
-
-          <div className="flex items-center gap-3 bg-slate-50 pl-4 pr-1 py-1 rounded-full border border-slate-100">
-            <span className="text-xs font-bold text-slate-500">
-              {session?.user?.name ?? "Visitante"}
-            </span>
-            <div className="h-8 w-8 rounded-full bg-[#248ebe] flex items-center justify-center text-white text-xs font-bold shadow-md uppercase">
-              {session?.user?.name?.[0] ?? "V"}
-            </div>
-          </div>
-        </div>
-      </header>
       <div className="max-w-6xl mx-auto space-y-10">
 
         {/* Cabeçalho */}
@@ -110,7 +77,7 @@ export default function ItensPage() {
           <div>
             <h1 className="text-4xl font-black text-[#248ebe]">Itens para doação</h1>
             <p className="text-slate-500 font-bold uppercase text-xs tracking-widest mt-1">
-              Adição de itens que os doadores podem escolher para doar. 
+              Adição de itens que os doadores podem escolher para doar.
               (Cada item tem uma pontuação pré-definida)
             </p>
           </div>
@@ -119,55 +86,55 @@ export default function ItensPage() {
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Formulário lateral adaptável para Criar/Update */}
           <form action="" onSubmit={handleSubmit}>
-          <section className="lg:col-span-1">
-            <div className={`card bg-white shadow-xl rounded-[2.5rem] border-2 transition-all duration-300 p-8 sticky top-24 ${isEditing ? 'border-[#248ebe]' : 'border-slate-100'}`}>
-              <h2 className="text-xl font-bold text-[#248ebe] mb-6 flex items-center gap-2">
-                <span className={`w-2 h-6 rounded-full transition-colors ${isEditing ? 'bg-[#248ebe]' : 'bg-[#ff9324]'}`}></span>
-                {isEditing ? "Editar Item" : "Novo Item"}
-              </h2>
-              <div className="space-y-4">
-                <input
-                  type="text"
-                  placeholder="Nome do Item"
-                  className="w-full h-14 rounded-2xl bg-slate-100 px-6 outline-none border-2 border-transparent focus:border-[#248ebe] text-slate-800 font-medium placeholder:text-slate-400 shadow-inner"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
+            <section className="lg:col-span-1">
+              <div className={`card bg-white shadow-xl rounded-[2.5rem] border-2 transition-all duration-300 p-8 sticky top-24 ${isEditing ? 'border-[#248ebe]' : 'border-slate-100'}`}>
+                <h2 className="text-xl font-bold text-[#248ebe] mb-6 flex items-center gap-2">
+                  <span className={`w-2 h-6 rounded-full transition-colors ${isEditing ? 'bg-[#248ebe]' : 'bg-[#ff9324]'}`}></span>
+                  {isEditing ? "Editar Item" : "Novo Item"}
+                </h2>
+                <div className="space-y-4">
+                  <input
+                    type="text"
+                    placeholder="Nome do Item"
+                    className="w-full h-14 rounded-2xl bg-slate-100 px-6 outline-none border-2 border-transparent focus:border-[#248ebe] text-slate-800 font-medium placeholder:text-slate-400 shadow-inner"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  />
 
-                <input
-                  type="number"
-                  placeholder="Pontuação"
-                  className="w-full h-14 rounded-2xl bg-slate-100 px-6 outline-none border-2 border-transparent focus:border-[#248ebe] text-slate-800 font-medium placeholder:text-slate-400 shadow-inner"
-                  value={pontos}
-                  onChange={(e) => setPontos(e.target.value)}
-                />
+                  <input
+                    type="number"
+                    placeholder="Pontuação"
+                    className="w-full h-14 rounded-2xl bg-slate-100 px-6 outline-none border-2 border-transparent focus:border-[#248ebe] text-slate-800 font-medium placeholder:text-slate-400 shadow-inner"
+                    value={pontos}
+                    onChange={(e) => setPontos(e.target.value)}
+                  />
 
-                <textarea
-                  placeholder="Descrição do item..."
-                  className="w-full h-32 rounded-2xl bg-slate-100 p-6 outline-none border-2 border-transparent focus:border-[#248ebe] text-slate-800 font-medium placeholder:text-slate-400 shadow-inner resize-none"
-                  value={desc}
-                  onChange={(e) => setDesc(e.target.value)}
-                />
+                  <textarea
+                    placeholder="Descrição do item..."
+                    className="w-full h-32 rounded-2xl bg-slate-100 p-6 outline-none border-2 border-transparent focus:border-[#248ebe] text-slate-800 font-medium placeholder:text-slate-400 shadow-inner resize-none"
+                    value={desc}
+                    onChange={(e) => setDesc(e.target.value)}
+                  />
 
-                <div className="flex flex-col gap-2">
-                  <button
-                    className={`w-full h-14 text-white rounded-2xl font-bold text-lg shadow-lg transition-all active:scale-95 ${isEditing ? 'bg-[#248ebe] shadow-blue-100 hover:bg-[#1d76a1]' : 'bg-[#ff9324] shadow-orange-100 hover:bg-[#e07d1d]'}`}
-                  >
-                    {isEditing ? "Atualizar Dados" : "Salvar Item"}
-                  </button>
-
-                  {isEditing && (
+                  <div className="flex flex-col gap-2">
                     <button
-                      onClick={() => { setIsEditing(false); setName(""); setPontos(""); setDesc(""); }}
-                      className="text-slate-400 font-bold text-sm hover:text-slate-600 transition-colors py-2"
+                      className={`w-full h-14 text-white rounded-2xl font-bold text-lg shadow-lg transition-all active:scale-95 ${isEditing ? 'bg-[#248ebe] shadow-blue-100 hover:bg-[#1d76a1]' : 'bg-[#ff9324] shadow-orange-100 hover:bg-[#e07d1d]'}`}
                     >
-                      Cancelar Edição
+                      {isEditing ? "Atualizar Dados" : "Salvar Item"}
                     </button>
-                  )}
+
+                    {isEditing && (
+                      <button
+                        onClick={() => { setIsEditing(false); setName(""); setPontos(""); setDesc(""); }}
+                        className="text-slate-400 font-bold text-sm hover:text-slate-600 transition-colors py-2"
+                      >
+                        Cancelar Edição
+                      </button>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          </section>
+            </section>
           </form>
 
           {/* Listagem com botão de Update */}

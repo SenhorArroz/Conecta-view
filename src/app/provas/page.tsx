@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useSession } from 'next-auth/react';
 import { api } from '~/trpc/react';
+import Navbar from '../_components/navbar';
 
 export default function ProvasPage() {
   const { data: session } = useSession();
@@ -83,25 +84,8 @@ export default function ProvasPage() {
 
   return (
     <main className="min-h-screen w-full bg-slate-50 text-slate-900 font-sans">
-      <header className="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200 px-8 py-4 flex justify-between items-center">
-        <div className="flex items-center gap-3">
-          <div className="bg-[#248ebe] p-1.5 rounded-xl">
-            <img src="/logoProeidi.png" alt="Logo" className="h-10 brightness-0 invert" />
-          </div>
-        </div>
-        <div className="flex items-center gap-8">
-          <nav className="hidden lg:flex gap-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">
-            <a href="/dashboard" className="hover:text-[#248ebe] transition-all">Dashboard</a>
-            <a href="/itens" className="hover:text-[#248ebe] transition-all">Itens</a>
-            <a href="/doacoes" className="hover:text-[#248ebe] transition-all">Doações</a>
-            <a className="text-[#ff9324] border-b-2 border-[#ff9324] pb-1 cursor-pointer">Provas</a>
-          </nav>
-          <div className="flex items-center gap-3 bg-slate-50 pl-4 pr-1 py-1 rounded-full border border-slate-100">
-            <span className="text-xs font-bold text-slate-500">{session?.user?.name ?? "Visitante"}</span>
-            <div className="h-8 w-8 rounded-full bg-[#248ebe] flex items-center justify-center text-white text-xs font-bold uppercase">{session?.user?.name?.[0] ?? "V"}</div>
-          </div>
-        </div>
-      </header>
+      <Navbar activePage="provas" />
+
 
       <div className="max-w-6xl mx-auto space-y-10 pb-20">
         <div className="flex justify-between py-10 items-end border-b-4 border-[#ff9324] pb-4">
@@ -122,7 +106,7 @@ export default function ProvasPage() {
               <div className="space-y-4">
                 <input type="text" placeholder="Nome da Prova" className="w-full h-14 rounded-2xl bg-slate-100 px-6 outline-none text-slate-800 font-medium placeholder:text-slate-400 shadow-inner focus:border-[#248ebe] border-2 border-transparent transition-all" value={nomeProva} onChange={(e) => setNomeProva(e.target.value)} required />
                 <input type="number" placeholder="Pontuação" className="w-full h-14 rounded-2xl bg-slate-100 px-6 outline-none text-slate-800 font-medium placeholder:text-slate-400 shadow-inner focus:border-[#248ebe] border-2 border-transparent transition-all" value={pontos} onChange={(e) => setPontos(e.target.value)} required />
-                
+
                 <select className="w-full h-14 rounded-2xl bg-slate-100 px-6 outline-none text-slate-800 font-medium shadow-inner border-2 border-transparent focus:border-[#248ebe] appearance-none cursor-pointer" value={equipeId} onChange={(e) => setEquipeId(e.target.value)}>
                   <option value="">Nenhuma Equipe (Pendente)</option>
                   {equipes?.map(eq => <option key={eq.id} value={eq.id}>Vencedor: Equipe {eq.nome}</option>)}
@@ -165,7 +149,7 @@ export default function ProvasPage() {
                     <p className="text-slate-500 text-sm mt-4 bg-slate-50 p-4 rounded-xl italic border border-slate-100">"{prova.desc}"</p>
                     <div className="flex justify-end gap-6 mt-6 pt-4 border-t border-slate-50">
                       <button onClick={() => handleEdit(prova)} className="text-[#248ebe] font-black text-xs uppercase tracking-widest hover:text-[#ff9324] transition-colors">Editar</button>
-                      <button onClick={() => { if(confirm("Excluir prova?")) deleteProva.mutate({ id: prova.id }) }} className="text-red-400 font-black text-xs uppercase tracking-widest hover:text-red-600 transition-colors">Excluir</button>
+                      <button onClick={() => { if (confirm("Excluir prova?")) deleteProva.mutate({ id: prova.id }) }} className="text-red-400 font-black text-xs uppercase tracking-widest hover:text-red-600 transition-colors">Excluir</button>
                     </div>
                   </div>
                 </div>
