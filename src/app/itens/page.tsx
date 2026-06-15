@@ -413,10 +413,12 @@ export default function ItensPage() {
   };
 
   // ── Filter ──
-  const filtered = (itens ?? []).filter((i) =>
-    i.name.toLowerCase().includes(search.toLowerCase()) ||
-    (i.desc ?? "").toLowerCase().includes(search.toLowerCase())
-  );
+  const filtered = (itens ?? [])
+    .filter((i) =>
+      i.name.toLowerCase().includes(search.toLowerCase()) ||
+      (i.desc ?? "").toLowerCase().includes(search.toLowerCase())
+    )
+    .sort((a, b) => a.name.localeCompare(b.name));
 
   const totalPontos = (itens ?? []).reduce((acc, i) => acc + i.pontos, 0);
   const lastSync = dataUpdatedAt ? new Date(dataUpdatedAt).toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit", second: "2-digit" }) : "--:--:--";
