@@ -366,7 +366,7 @@ export default function DoacoesPage() {
                       {itens?.length === 0 && (
                         <p className="text-xs text-slate-400 text-center py-4">Nenhum item cadastrado ainda.</p>
                       )}
-                      {itens?.map((item) => {
+                      {itens && [...itens].sort((a, b) => a.name.localeCompare(b.name)).map((item) => {
                         const sel = itensQuantificados.find(i => i.id === item.id);
                         return (
                           <div
