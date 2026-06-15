@@ -63,6 +63,15 @@ export function ConquistasPanel({ doacoes }: { doacoes: any[] | undefined }) {
       alcançado: totalPontos >= 10000,
       progresso: Math.min(totalPontos, 10000),
       meta: 10000,
+    },
+    {
+      id: "impacto_bilionario",
+      nome: "Impacto Bilionário",
+      desc: "Gere 20.000 pontos em doações",
+      icone: "💸",
+      alcançado: totalPontos >= 20000,
+      progresso: Math.min(totalPontos, 20000),
+      meta: 20000,
     }
   ];
 
