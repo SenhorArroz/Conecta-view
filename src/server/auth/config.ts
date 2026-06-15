@@ -1,4 +1,3 @@
-import { PrismaAdapter } from "@auth/prisma-adapter";
 import bcrypt from "bcryptjs";
 import type { DefaultSession, NextAuthConfig } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -28,8 +27,9 @@ export const authConfig = {
   session: {
     strategy: "jwt", // Obrigatório para CredentialsProvider
   },
-  
-  adapter: PrismaAdapter(db),
+  // NOTA: PrismaAdapter removido — incompatível com CredentialsProvider + JWT.
+  // O adapter tenta criar/ler sessões no banco, causando lentidão e erros.
+
 
   providers: [
     CredentialsProvider({
@@ -85,6 +85,13 @@ export const authConfig = {
         session.user.name = token.name as string;
       }
       return session;
+    },
+
+    // 3. Garante redirecionamento correto após login
+    redirect: ({ url, baseUrl }) => {
+      if (url.startsWith("/")) return `${baseUrl}${url}`;
+      if (new URL(url).origin === baseUrl) return url;
+      return baseUrl;
     },
   },
 } satisfies NextAuthConfig;

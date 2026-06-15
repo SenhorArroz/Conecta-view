@@ -22,7 +22,7 @@ const LandingPage = () => {
           distance: '30px',
           origin: 'bottom',
           interval: 200,
-          cleanup: true 
+          cleanup: true
         });
       } catch (error) {
         console.error("Erro ao carregar ScrollReveal:", error);
@@ -37,21 +37,13 @@ const LandingPage = () => {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      <nav className="navbar bg-white shadow-md px-4 md:px-12 sticky top-0 z-50 border-b border-gray-100">
-        <div className="flex-1">
-          <img 
-            src="/logoProeidi.png" 
-            alt="Proeidi Logo" 
+      <nav className="bg-white shadow-md px-4 md:px-12 top-0 z-50 border-b border-gray-100">
+        <div className="flex-1 ">
+          <img
+            src="/logoProeidi.png"
+            alt="Proeidi Logo"
             className="h-20"
           />
-        </div>
-        <div className="flex">
-          <ul className="menu menu-horizontal px-1 font-bold text-slate-700 hidden md:flex">
-            <li><a href="/sobre" className="hover:text-[#ff9324] transition-colors">Sobre</a></li>
-          </ul>
-          <a href='/login' className="btn bg-[#248ebe] hover:bg-[#1a6fb3] ml-4 text-white border-none shadow-md transition-all">
-            Acessar Sistema
-          </a>
         </div>
       </nav>
 
@@ -63,7 +55,7 @@ const LandingPage = () => {
               do Proeidi Conecta
             </h1>
             <p className="py-6 text-lg opacity-95 font-medium max-w-lg mx-auto">
-              A plataforma definitiva para gerenciar gincanas de forma rápida e intuitiva, 
+              A plataforma definitiva para gerenciar gincanas de forma rápida e intuitiva,
               centralizando doações e resultados em tempo real.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4 mt-4">
@@ -121,7 +113,7 @@ const LandingPage = () => {
         <aside>
           <p className="font-bold text-2xl tracking-tight">
             PROEIDI <span className="text-[#ff9324]">CONECTA</span>
-          </p> 
+          </p>
           <p className="opacity-70 text-base max-w-md">Para uma gincana mais prática e sem usode tantas planilhas.</p>
           <p className="opacity-40 text-xs mt-4">Made by: Luiz Guimarães</p>
         </aside>
